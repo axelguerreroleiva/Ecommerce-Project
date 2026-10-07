@@ -1,0 +1,46 @@
+# Navbar · Ecommerce Pro
+
+Componente de navegación para el proyecto integrador (React + LocalStorage).
+
+## Qué incluye
+- Logo `ECOMMERCE PRO` con "PRO" en rojo
+- Links: **Catálogo**, **Nosotros** y **Panel** (solo para admin), con subrayado en el link activo
+- Visitante: botones **Ingresar** y **Registrarse**
+- Usuario logueado: saludo `Hola, {nombre}`, corazón de deseos y **Salir**
+- Admin: badge `ADMIN` en lugar del saludo
+- Mobile (≤ 768 px): menú hamburguesa, se cierra al navegar o con `Esc`
+
+## Instalación
+```bash
+npm install react-router-dom
+```
+
+## Estructura
+```
+src/components/Navbar/
+├── Navbar.jsx
+└── Navbar.css
+```
+
+## Uso
+```jsx
+import Navbar from "./components/Navbar/Navbar";
+
+<Navbar user={user} onLogout={handleLogout} wishlistCount={wishlist.length} />
+```
+
+| Prop            | Tipo                                         | Descripción                              |
+| --------------- | -------------------------------------------- | ---------------------------------------- |
+| `user`          | `null` o `{ nombre, rol: "admin" \| "user" }` | Usuario actual (`null` = visitante)      |
+| `onLogout`      | `function`                                   | Se ejecuta al tocar "Salir"              |
+| `wishlistCount` | `number`                                     | Cantidad de deseos (muestra un contador) |
+
+## Rutas esperadas
+`/` (catálogo), `/nosotros`, `/panel`, `/login`, `/registro`, `/deseos`.
+Si tus rutas se llaman distinto, cambiá los `to="..."` en `Navbar.jsx`.
+
+## Fuente
+Agregá Archivo en el `index.html`:
+```html
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+```
