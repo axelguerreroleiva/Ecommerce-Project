@@ -1,0 +1,249 @@
+/* Tipografía: agregá esto en index.html (o en tu CSS global):
+   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet"> */
+
+.navbar {
+  --nb-bg: #ffffff;
+  --nb-ink: #16181d;
+  --nb-muted: #5b6070;
+  --nb-accent: #c8102e;
+  --nb-border: #e2e4e9;
+  --nb-height: 56px;
+
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nb-bg);
+  border-bottom: 1px solid var(--nb-border);
+  font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--nb-ink);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 1200px;
+  height: var(--nb-height);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Logo */
+.navbar__logo {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--nb-ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.navbar__logo span {
+  color: var(--nb-accent);
+}
+
+/* Links */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-right: auto;
+  margin-left: 12px;
+}
+.navbar__link {
+  position: relative;
+  padding: 6px 0;
+  font-size: 14px;
+  color: var(--nb-muted);
+  text-decoration: none;
+}
+.navbar__link:hover {
+  color: var(--nb-ink);
+}
+.navbar__link--active {
+  color: var(--nb-ink);
+}
+.navbar__link--active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--nb-accent);
+}
+
+/* Saludo / badge admin */
+.navbar__greeting {
+  font-size: 13px;
+  font-weight: 700;
+}
+.navbar__admin-badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--nb-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Botones */
+.navbar__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--nb-ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+.navbar__btn--outline {
+  background: transparent;
+  color: var(--nb-ink);
+}
+.navbar__btn--outline:hover {
+  background: #f3f4f6;
+}
+.navbar__btn--solid {
+  background: var(--nb-ink);
+  color: #fff;
+}
+.navbar__btn--solid:hover {
+  background: #2a2d36;
+}
+
+/* Corazón de deseos */
+.navbar__icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--nb-border);
+  background: var(--nb-bg);
+  color: var(--nb-ink);
+  text-decoration: none;
+}
+.navbar__icon-btn:hover {
+  border-color: var(--nb-accent);
+  color: var(--nb-accent);
+}
+.navbar__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--nb-accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+}
+
+/* Botón hamburguesa (solo mobile) */
+.navbar__toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--nb-ink);
+  cursor: pointer;
+}
+
+/* Foco visible */
+.navbar a:focus-visible,
+.navbar button:focus-visible {
+  outline: 2px solid var(--nb-accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Desktop: el menú se "disuelve" y sus hijos quedan en la barra ---------- */
+@media (min-width: 769px) {
+  .navbar__menu {
+    display: contents;
+  }
+  /* Orden en la barra: logo · links · saludo/badge · corazón · botones */
+  .navbar__logo { order: 0; }
+  .navbar__links { order: 1; }
+  .navbar__greeting,
+  .navbar__admin-badge { order: 2; }
+  .navbar__heart { order: 3; }
+  .navbar__btn { order: 4; }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .navbar__heart {
+    margin-left: auto;
+  }
+  .navbar__toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+  .navbar__heart + .navbar__toggle {
+    margin-left: 4px;
+  }
+
+  .navbar__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px;
+    background: var(--nb-bg);
+    border-bottom: 1px solid var(--nb-border);
+    box-shadow: 0 8px 16px rgba(22, 24, 29, 0.08);
+  }
+  .navbar__menu--open {
+    display: flex;
+  }
+
+  .navbar__links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin: 0;
+  }
+  .navbar__link {
+    padding: 10px 0;
+    font-size: 16px;
+  }
+  .navbar__link--active::after {
+    bottom: 4px;
+    right: auto;
+    width: 24px;
+  }
+
+  .navbar__btn {
+    padding: 11px 14px;
+    font-size: 14px;
+  }
+  .navbar__admin-badge {
+    align-self: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar * {
+    transition: none !important;
+  }
+}
