@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 /**
@@ -12,7 +12,13 @@ import "./Navbar.css";
  */
 export default function Navbar({ user = null, onLogout, wishlistCount = 0 }) {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
   const isAdmin = user?.rol === "admin";
+
+  // Cierra el menú mobile al cambiar de ruta
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
 
   // Cierra el menú con Escape
   useEffect(() => {
@@ -28,12 +34,7 @@ export default function Navbar({ user = null, onLogout, wishlistCount = 0 }) {
   return (
     <header className="navbar">
       <div className="navbar__inner">
-        <Link
-          to="/"
-          className="navbar__logo"
-          aria-label="Ecommerce Pro, ir al inicio"
-          onClick={() => setOpen(false)}
-        >
+        <Link to="/" className="navbar__logo" aria-label="Ecommerce Pro, ir al inicio">
           ECOMMERCE <span>PRO</span>
         </Link>
 
@@ -41,7 +42,6 @@ export default function Navbar({ user = null, onLogout, wishlistCount = 0 }) {
           <Link
             to="/deseos"
             className="navbar__icon-btn navbar__heart"
-            onClick={() => setOpen(false)}
             aria-label={
               wishlistCount > 0
                 ? `Lista de deseos, ${wishlistCount} productos`
@@ -71,27 +71,14 @@ export default function Navbar({ user = null, onLogout, wishlistCount = 0 }) {
           className={"navbar__menu" + (open ? " navbar__menu--open" : "")}
         >
           <nav className="navbar__links" aria-label="Principal">
-            <NavLink
-              to="/"
-              end
-              className={linkClass}
-              onClick={() => setOpen(false)}
-            >
+            <NavLink to="/" end className={linkClass}>
               Catálogo
             </NavLink>
-            <NavLink
-              to="/nosotros"
-              className={linkClass}
-              onClick={() => setOpen(false)}
-            >
+            <NavLink to="/nosotros" className={linkClass}>
               Nosotros
             </NavLink>
             {isAdmin && (
-              <NavLink
-                to="/panel"
-                className={linkClass}
-                onClick={() => setOpen(false)}
-              >
+              <NavLink to="/panel" className={linkClass}>
                 Panel
               </NavLink>
             )}
@@ -99,18 +86,10 @@ export default function Navbar({ user = null, onLogout, wishlistCount = 0 }) {
 
           {!user && (
             <>
-              <Link
-                to="/login"
-                className="navbar__btn navbar__btn--outline"
-                onClick={() => setOpen(false)}
-              >
+              <Link to="/login" className="navbar__btn navbar__btn--outline">
                 Ingresar
               </Link>
-              <Link
-                to="/registro"
-                className="navbar__btn navbar__btn--solid"
-                onClick={() => setOpen(false)}
-              >
+              <Link to="/registro" className="navbar__btn navbar__btn--solid">
                 Registrarse
               </Link>
             </>
@@ -126,10 +105,7 @@ export default function Navbar({ user = null, onLogout, wishlistCount = 0 }) {
               <button
                 type="button"
                 className="navbar__btn navbar__btn--outline navbar__logout"
-                onClick={() => {
-                  setOpen(false);
-                  onLogout();
-                }}
+                onClick={onLogout}
               >
                 Salir
               </button>
