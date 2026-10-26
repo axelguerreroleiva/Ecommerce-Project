@@ -44,7 +44,7 @@ export default function ProductForm({ product = null, onSaved, onCancel }) {
   const fieldError = (name) => errors[name] && <span className="error" role="alert">{errors[name]}</span>;
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="form">
+    <form id="product-form" onSubmit={handleSubmit} noValidate className="form">
       <label className="field">
         Código
         <input value={product ? product.id : 'Se genera automáticamente'} disabled />

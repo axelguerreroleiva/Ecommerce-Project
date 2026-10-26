@@ -28,7 +28,7 @@ export default function Register() {
   return (
     <section className="auth">
       <h1>Crear cuenta</h1>
-      <form onSubmit={handleSubmit} className="form" noValidate>
+      <form id="register-form" onSubmit={handleSubmit} className="form" noValidate>
         <label className="field">
           Nombre
           <input name="name" value={form.name} onChange={handleChange} autoComplete="name" aria-invalid={Boolean(errors.name)} />

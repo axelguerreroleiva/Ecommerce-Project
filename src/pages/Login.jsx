@@ -24,7 +24,7 @@ export default function Login() {
   return (
     <section className="auth">
       <h1>Ingresar</h1>
-      <form onSubmit={handleSubmit} className="form" noValidate>
+      <form id="login-form" onSubmit={handleSubmit} className="form" noValidate>
         <label className="field">
           Email
           <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} autoComplete="email" />
